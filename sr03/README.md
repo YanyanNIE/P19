@@ -2,4 +2,4 @@ sr03
 
 
 
-![](imgs/console-system-input.PNG)
+![imgs](https://github.com/YanyanNIE/P19/tree/master/sr03/imgs/console-system-input.PNG)
