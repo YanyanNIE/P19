@@ -1,6 +1,6 @@
-#sr03
+# sr03
 
-##td1-ex: Communication Simple
+## td1-ex: Communication Simple
 - Réaliser un envoi d’un message à partir du programme Client.java en utilisant les méthodes fournies par la class OutputStream.
 - Réaliser la réception du message envoyé par le client et de le visualiser sur la console à partir du programme Serveur.java.
 - Envoyer une réponse au programme client.java à partir du programme Serveur.java.
@@ -10,7 +10,7 @@
 <img src="imgs/console-system-input.png" width="40%" height="40%">
 </div>
 
-##td1-devoir: transfert d'un objet
+## td1-devoir: transfert d'un objet
 - Définir une class ‘’Restaurant’’ caractérisée par un nom (de type String), un numéro de téléphone (de type String), et une position (de type ‘’Point2D ’’).
 
 <div align=center>
