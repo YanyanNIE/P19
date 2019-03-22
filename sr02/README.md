@@ -1,5 +1,5 @@
 
-#E ex1
+## ex1
 Nous désirons développer un programme qui permet de faire un prélèvement de température chaque 5
 secondes. Entre deux mesures, le processus est occupé à faire autre chose (par exemple afficher une
 barre de progression (---------). 
@@ -11,9 +11,11 @@ On considère que le thermomètre est un processus fils créé avec `fork()`. Ce
 Quand le thermomètre reçoit le signal SIGUSR1, il se réveille et pour simuler la mesure de température, ce dernier tire un nombre aléatoire, compris entre 10 et 40, avec la fonction `random()`, et l'affiche en tant que température.
 
 ```
-Programmez ce prélèvement périodique de température, en redéfinissant les handlers des
-signaux SIGUSR1 (pour le processus thermomètre) et SIGALRM (pour le processus père). 
+Programmez ce prélèvement périodique de température, en redéfinissant les handlers des signaux SIGUSR1 (pour le processus thermomètre) et SIGALRM (pour le processus père). 
 ```
 
-<iframe height=100 width=400 src="https://github.com/YanyanNIE/P19/blob/master/sr02/imgs/ex1.gif">
+programme réalisé:
+
+![](imgs/ex1.gif)
+
 
