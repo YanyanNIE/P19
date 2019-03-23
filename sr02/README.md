@@ -11,11 +11,24 @@ On considère que le thermomètre est un processus fils créé avec `fork()`. Ce
 Quand le thermomètre reçoit le signal SIGUSR1, il se réveille et pour simuler la mesure de température, ce dernier tire un nombre aléatoire, compris entre 10 et 40, avec la fonction `random()`, et l'affiche en tant que température.
 
 ```
-Programmez ce prélèvement périodique de température, en redéfinissant les handlers des signaux SIGUSR1 (pour le processus thermomètre) et SIGALRM (pour le processus père). 
+Programmez ce prélèvement périodique de température, 
+en redéfinissant les handlers des signaux SIGUSR1 
+(pour le processus thermomètre) et SIGALRM (pour le processus père). 
 ```
 
 programme réalisé:
 
 ![](imgs/ex1.gif)
 
+## ex2
+un programme dans lequel un processus crée un processus fils. Les deux processus communiquent en utilisant le signal SIGUSR1. 
+
+- Le fils affiche des lettres minuscules de « a » à « z ».
+- Le père affiche les lettres majuscules de « A » à « Z ».
+
+Ecrire le programme de telle sorte que le texte affiché sera comme suit :
+
+```
+aAbcBCdefDEFghijGHIJklmnoKLMNOpqrstuPQRSTUvwxyzVWXYZ 
+```
 
