@@ -35,7 +35,6 @@ void handler_pere(){
 }
 
 int main(){
-  srand(time(NULL));
   struct sigaction sa_fils,sa_pere;
   switch (pid=fork()) {
     case -1:
