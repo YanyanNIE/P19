@@ -73,6 +73,7 @@ int main(int argc, char *argv[])
     close(fd2);
     shmdt(shm);
     shmdt(s);
+    shmctl(shmid,IPC_RMID,0); 
     return 0;
 
 }
