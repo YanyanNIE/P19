@@ -32,9 +32,28 @@ Ecrire le programme de telle sorte que le texte affiché sera comme suit :
 aAbcBCdefDEFghijGHIJklmnoKLMNOpqrstuPQRSTUvwxyzVWXYZ 
 ```
 
+## ipcs / ipcrm
+
+Lors de la mise au point de programmes, vous allez certainement créer des segments de mémoire
+partagée qui ne seront pas détruits.
+
+Pour voir les segments de mémoire partagée créés, utilisez la commande `ipcs -m`. Pour détruire des
+segments "oubliés", utilisez la commande `ipcrm -m ID`.
+
+Détruire les segments non utilisés: Il faut penser à détruire les ressources IPC à la fin des programmes. Si cela n'est pas fait, ces
+ressources persistent en mémoire 
+
 ## ex3 (Segment de mémoire partagée : Synchronisation père-fils)
 
-fichers concernants: `sharemem.h`; `surv.c`; `f1.dat`; `f2.dat`; `survshm.c`
+fichers concernants: 
+
+```
+sharemem.h 
+surv.c
+f1.dat
+f2.dat
+survshm.c
+```
 
 
 Vous allez avoir à inclure dans chacun de vos programmes plusieurs fichiers ".h". Il est plus simple,
@@ -81,3 +100,43 @@ Voici un exemple d’exécution où f1.dat contient bonjour et f2.dat contient s
  bonjoursr02 Octes copies: 7 par le parent 4 par le fils
  11 au total 
 ```
+
+## ex4  (Segment de mémoire partagée : client/serveur) 
+
+```
+sharemem.h 
+shm_client.c
+shm_server.c
+```
+
+**Implémentez les programmes client et serveur suivants :**
+
+- Client :
+
+
+  1. Initialiser la taille de la mémoire partagée shmsize à 27.
+  2. Initialiser la clé à 2017 (une valeur aléatoire).
+  3. Créer un segment de mémoire partagée en utilisant shmget avec la clé & IPC_CREAT comme
+paramètre. Si l'identificateur de mémoire partagée shmid est -1, arrêtez-le.
+  4. Afficher shmid.
+  5. Attacher le processus serveur à la mémoire partagée en utilisant shmmat avec shmid comme
+paramètre. Si le pointeur sur la mémoire partagée n'est pas obtenu, arrêtez-le.
+  6. Effacer le contenu de la région partagée à l'aide de la fonction memset.
+  7. Ecrire a-z sur la mémoire partagée.
+  8. Attendre que le client lit le contenu de la mémoire partagée
+  9. Détacher le processus de la mémoire partagée en utilisant l'appel système shmdt.
+  10. Supprimer la mémoire partagée du système en utilisant shmctl avec l'argument IPC_RMID.
+  11. Arrêt 
+
+
+- Serveur :
+
+  1. Initialiser la taille de la mémoire partagée shmsize à 27.
+  2. Initialiser la clé à 2017 (même valeur que dans le serveur).
+  3. Obtenir l'accès au même segment de mémoire partagée à l'aide de la même clé. S'il est obtenu,
+  affichez-le shmid sinon affichez le message « Le serveur n’est pas lancé ».
+  4. Attacher le processus client à la mémoire partagée à l'aide shmmat avec shmid comme
+  paramètre. Si le pointeur sur la mémoire partagée n'est pas obtenu, arrêtez-le.
+  5. Lire le contenu de la mémoire partagée et l'imprimer.
+  6. Après avoir lu, modifiez le premier caractère de la mémoire partagée en '*'
+  7. Arrêt 
