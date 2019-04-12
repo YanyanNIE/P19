@@ -203,3 +203,5 @@ main() {
   - Fen1": exécuter lirfic. 
 
 - Ecrire un programme qui projette un fichier en mémoire, ensuite il l’inverse (inverse son contenu) et affiche son nouveau contenu. 
+
+![](imgs/ex5-mmap.png)
