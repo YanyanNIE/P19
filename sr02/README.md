@@ -103,6 +103,8 @@ Voici un exemple d’exécution où f1.dat contient bonjour et f2.dat contient s
 
 ## ex4  (Segment de mémoire partagée : client/serveur) 
 
+fichers concernants: 
+
 ```
 sharemem.h 
 shm_client.c
@@ -140,3 +142,64 @@ paramètre. Si le pointeur sur la mémoire partagée n'est pas obtenu, arrêtez-
   5. Lire le contenu de la mémoire partagée et l'imprimer.
   6. Après avoir lu, modifiez le premier caractère de la mémoire partagée en '*'
   7. Arrêt 
+
+## ex5 Utilisation de la directive mmap()
+
+fichers concernants: 
+
+```
+sharemem.h 
+inific.c
+lirfic.c
+modfic.c
+showfic.c
+inverse.c
+```
+
+Le programme suivant écrit et lit une série d'entiers dans un fichier binaire.
+
+```
+#include <stdio.h>
+#include <fcntl.h>
+main() {
+ int tab1[10]={11,22,33,44,55,66,77,88,99,1000};
+ int tab2[10];
+ int i,fd;
+ fd=open("titi.dat",O_RDWR|O_CREAT|O_TRUNC,0666);
+ write (fd,tab1,10*sizeof(int));
+ close(fd);
+ fd=open("titi.dat",O_RDWR,0666);
+ read (fd,tab2,10*sizeof(int));
+ close(fd);
+ for (i=0;i<10;i++) printf("%d,%d\n",tab2[i],tab1[i]);
+}
+```
+
+- Faites un programme `inific.c` qui initialise le fichier "titi.dat", et un programme `lirfic.c` qui imprime sur la sortie standard le contenu de "titi.dat".
+
+- Faire un programme `modfic.c` et un programme `showfic.c` fonctionnant ainsi :
+  - `modfic.c` fait un mmap() de "titi.dat", puis boucle sur la séquence suivante :
+
+```
+1. lire un nombre "i" sur stdin,
+2. si on a lu "99", sortir du programme,
+3. ajouter "+1" à tab1[i], dans le segment "mmap",
+```
+
+  - `showfic.c` fait un mmap() de "titi.dat", puis boucle sur la séquence suivante :
+
+```
+1. lire un nombre "i" sur stdin,
+2. si on a lu "99", sortir du programme,
+3. imprimer tout le tableau tab1[], lu dans le segment "mmap",
+```
+
+- Exécuter vos programmes dans deux fenêtres ("Fen1" et "Fen2"):
+
+  - "Fen1": exécuter inific,
+  - "Fen1": exécuter modfic,
+  - "Fen2": exécuter showfic,
+  - sortir de modfic et de showfic,
+  - Fen1": exécuter lirfic. 
+
+- Ecrire un programme qui projette un fichier en mémoire, ensuite il l’inverse (inverse son contenu) et affiche son nouveau contenu. 
