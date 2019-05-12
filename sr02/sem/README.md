@@ -1,3 +1,5 @@
+# TD6 Machine sur deux séances de 2h 
+
 ## ipcs / ipcrm
 
 Lors de la mise au point de programmes, vous allez certainement créer des sémaphores qui ne seront pas détruits. 
