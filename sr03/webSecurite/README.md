@@ -102,22 +102,22 @@ Pour toutes les failles détectées dans la partie B, proposez un correctif en
 ### Vu d'ensemble
 
 <div align=center>
-<img src="../imgs/ws-mysql.png" width="100%" height="40%">
+<img src="imgs/ws-mysql.png" width="100%" height="40%">
 </div>
 
 
 <div align=center>
-<img src="../imgs/ws-login.png" width="50%" height="40%">
+<img src="imgs/ws-login.png" width="50%" height="40%">
 </div>
 
 <div align=center>
-<img src="../imgs/ws-clients.png" width="50%" height="40%">
+<img src="imgs/ws-clients.png" width="50%" height="40%">
 </div>
 
 <div align=center>
-<img src="../imgs/ws-msgs.png" width="50%" height="40%">
+<img src="imgs/ws-msgs.png" width="50%" height="40%">
 </div>
 
 <div align=center>
-<img src="../imgs/ws-virement.png" width="50%" height="40%">
+<img src="imgs/ws-virement.png" width="50%" height="40%">
 </div>
