@@ -230,4 +230,36 @@ gcc -o excl-mutu-none excl-mutu-none.c -L. libsempv.a
 En fait, la valeur de la variable E dans le processus père est de : 199, mais dans le processus fils est de: 200.
 
 
-## TODO
+# TODO
+- Modifiez le programme précédent (nouvelle version nommée `"excl-mutu.c"`) qui utilise la bibliothèque précédemment créée et qui permet de "synchroniser" les modifications de E par les deux process (Utilisation des primitives (P) et (V) pour réaliser une exclusion mutuelle).
+
+## Ex3 - Utilisation de la bibliothèque pour un producteur-consommateur
+
+
+fichers concernants: 
+
+```
+xxxx
+```
+
+Créer un programme `"prod-conso.c"` qui utilise la bibliothèque précédemment créée et dont le but est le
+suivant :
+    
+- Un process fils va produire une suite d'entiers qu'il va stocker dans un buffer circulaire de taille 5 entiers.
+    
+- Le process père consomme les données de ce buffer circulaire.
+
+Bien entendu, le process fils est bloqué lorsque le buffer est plein (il attend que le père consomme les données et libère de la place), et le père est bloqué losque le buffer est vide (il attend que le fils produise des données). Cette synchronisation entre le père et le fils sera réalisée uniquement à l'aide de deux sémaphores dont on aura soigneusement étudié les valeurs initiales.
+
+**Indice**: Votre programme réalisera donc les fonctions suivantes :
+
+- Création d'un segment de mémoire partagée pouvant contenir 5 entiers. Ce segment de mémoire
+partagée sera vu comme un buffer circulaire géré par deux "index" : un index d'écriture et un
+index de lecture qui évolueront "circulairement" (0 1 2 3 4 0 1 2 ...).
+
+- Création d'un process "fils" partageant le segment précédemment créé avec son "père".
+
+- Le process fils va jouer le rôle du producteur. Il génère les entiers de 1 à 50 qu'il stocke dans le
+buffer circulaire au fur et à mesure qu'il y a de la place libre. Il gère donc l'index d'écriture du
+buffer circulaire. Le process père, consommateur, va lire et afficher les données présentes dans
+le buffer circulaire. Il gère l'index de lecture. 
