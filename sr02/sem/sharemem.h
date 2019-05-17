@@ -6,8 +6,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define SHMSZ 27
+#define SHMSZ 5 * sizeof(int)
 
 int createshm(void);
 int* bindshm(int);
-void initshm(int*);
+void initshmE(int*);
+void initshmBuffers(int*);

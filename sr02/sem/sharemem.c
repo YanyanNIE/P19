@@ -22,7 +22,7 @@ int* bindshm(int shmid){
     return shm;
 }
 
-void initshm(int *shm){
+void initshmE(int *shm){
     *shm = 0;
 }
 

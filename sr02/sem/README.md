@@ -227,12 +227,10 @@ gcc -o excl-mutu-none excl-mutu-none.c -L. libsempv.a
  
 - La valeur de la variable E est-elle égale à 200 ? Pourquoi ? 
 
-![](imgs/excl-mutu-none.png)
+![](imgs/excl-mutu.gif)
 
 En fait, la valeur de la variable E dans le processus père est de : 199, mais dans le processus fils est de: 200.
 
-
-# TODO
 - Modifiez le programme précédent (nouvelle version nommée `"excl-mutu.c"`) qui utilise la bibliothèque précédemment créée et qui permet de "synchroniser" les modifications de E par les deux process (Utilisation des primitives (P) et (V) pour réaliser une exclusion mutuelle).
 
 ## Ex3 - Utilisation de la bibliothèque pour un producteur-consommateur
@@ -241,7 +239,19 @@ En fait, la valeur de la variable E dans le processus père est de : 199, mais d
 fichers concernants: 
 
 ```
-xxxx
+semaph.h
+sem_pv.c
+
+sharemem.h
+sharemem.c
+
+
+sem_pv.o
+sharemem.o
+libsempv.a
+
+prod-conso.c
+prod-conso-alea.c
 ```
 
 Créer un programme `"prod-conso.c"` qui utilise la bibliothèque précédemment créée et dont le but est le
@@ -265,3 +275,14 @@ index de lecture qui évolueront "circulairement" (0 1 2 3 4 0 1 2 ...).
 buffer circulaire au fur et à mesure qu'il y a de la place libre. Il gère donc l'index d'écriture du
 buffer circulaire. Le process père, consommateur, va lire et afficher les données présentes dans
 le buffer circulaire. Il gère l'index de lecture. 
+
+
+#### test
+
+`prod-conso.c`: teste avec le produteur génère les entiers de 1 à 10:
+
+![](imgs/prod-conso.png)
+
+`prod-conso-alea.c`: le produteur génère les entiers aléatoire entre 1 et 50, quand le consommateur le consomme, on le met à 0. Ce qui génére l'ordre de produit et de consommation alétoire:
+
+![](imgs/prod-conso-alea.png)
