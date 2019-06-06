@@ -1,4 +1,5 @@
 
+## C3. Gestion des entrées / sorties
 ### Ordonnancement des requêtes du disque
 
 1. Ordonnancement dans l'ordre d'arrivée (FIFO)
@@ -31,7 +32,7 @@ nombre total de piste parcours= (14-12)+(12-11)+(11-17)+(18-17)+(18-4)+(4-2)= 20
     Cet algorithme parcourt toutes les pistes dans une direction donnée, par exemple vers l'intérieur, et traite au fur et à mesure les requêtes qu'il rencontre. Ensuite, la tête change de direction et balaie toutes les pistes vers l'extérieur. Cette version de balayage est appelée SCAN
 
 
-
+## C6. Gestion de la mémoire
 ### Algorithmes de remplacement de page 页面置换算法
 
 1. Algorithme optimal 最佳置换算法（理想置换算法）
@@ -87,6 +88,7 @@ nombre total de piste parcours= (14-12)+(12-11)+(11-17)+(18-17)+(18-4)+(4-2)= 20
     3. NRU: Page 0, parce que rb=0(non référencés) et mb=0(non modifiées)
 
 
+## C8. Ordonnancement de processuss
 ### Algorithmes d'ordonnancement 调度算法
 
 - Ordonnancement sans réquisition du CPU 非抢占式调度
@@ -171,3 +173,35 @@ nombre total de piste parcours= (14-12)+(12-11)+(11-17)+(18-17)+(18-4)+(4-2)= 20
         - un processus qui se bloque pour une E /S sera placé dans la file supérieure où il sera plus prioritaire
 
     将时间片轮转与优先级调度相结合，把进程按优先级分成不同的队列，先按优先级调度，优先级相同的，按时间片轮转。优点是兼顾长短作业，有较好的响应时间，可行性强，适用于各种作业环境。
+
+
+##  C9. Interblockage
+
+### Conditions néssaire d'interblockage
+1. Exclusion mutuelle
+2. Occupation et attente
+3. Pas de réquisition
+4. Attente circulaire
+
+
+### Traitement de l'interblockage
+
+1. Ignore l'interblockage
+
+2. Prévention
+    1. par prévenir l'exclusion mutuelle
+    2. par prévenir l'occupation et attente
+        - Allocation globale
+        - Allocation par étapes
+    3. par prévenir la non préemption
+        - Tout processus qui demande des ressources non disponibles dans l'immédiat se bloque mais le système lui retire toutes les ressources qu'il détient déjà.
+        - Si un processus demande de nouvelles ressources non disponibles le système les retire à d'autres processus bloqués en attente d'autres ressources.
+    4. par prévenir l'attente circulaire: imposer un ordre total sur l'acquisition des ressources. 
+
+3. Evitement des interblockages: 
+    1. Algorithme du Banquier 
+        - évaluer le risque d'interblocage pouvant être provoqué par une demande de ressource
+    2. Cas d'un seul exemplaire par ressource
+    
+
+4. Détection des interblocage et reprise
