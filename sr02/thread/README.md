@@ -269,3 +269,17 @@ Analyser l'impact des deux optimisations suivantes :
 [i] pour indiquer si k = 2 * i + 3 est premier ou non.
 
 ![](imgs/erato-impaire.png)
+
+# HORS TD
+
+## Exclusion mutuelle: thread-mutex
+
+`thread-mutex.c`
+
+![](imgs/thread-mutex.gif)
+
+## Variables conditionnelles: thread-cond
+
+`thread-cond.c`
+
+![](imgs/thread-cond.png)
