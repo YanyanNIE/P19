@@ -205,3 +205,18 @@ nombre total de piste parcours= (14-12)+(12-11)+(11-17)+(18-17)+(18-4)+(4-2)= 20
     
 
 4. Détection des interblocage et reprise
+    1. Cas à un seul exemplaire par type de ressource
+        - Méthode : Graphe d'attente et interblocage
+    2. Cas de plusieurs exemplaires par type de ressource
+        - Structures de données
+            1. Le vecteur DISPONIBLE
+            2. Les matrices ALLOCATION et DEMANDE
+
+![](img/alg-detection-interblogage.png)
+
+    - Défaire un interblocage 撤销死锁
+        1. Terminaison de processus:
+            - Avorter tous les processus en situation d'interblocage et prendre leur ressource
+            - Avorter un processus à la fois, jusqu'à ce que le circuit d'interblocage soit éliminé
+        2. Réquisition de ressources:
+            - Réquisitionner successivement certaines ressources et les donner à d'autres processus jusqu'à ce que le circuit d'interblocage soit défait
