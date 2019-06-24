@@ -772,7 +772,7 @@ Deux autres espaces de noms fortement utilisés dans SOAP sont « xsd » et « x
 
 1. Vulnérabilités fréquentes:
 - Injection
--  Violation de gestion d’authentification
+- Violation de gestion d’authentification
 - Violation de gestion de session
 - Cross-Site Scripting (XSS)
 - Violation de contrôle d’accès (références directes non sécurisées à un objet,
@@ -910,3 +910,122 @@ manque de contrôle d’accès au niveau fonctionnel)
         - il est portable vers d'autres systèmes d'exploitation et serveurs Web non-Microsoft.
     - SSI
         - SSI est vraiment conçu uniquement pour les inclusions simples, pas pour les programmes «réels» qui utilisent des données de formulaire, des raccordements de base de données
+
+## P4: IoT
+
+1. la définition de IoT.
+    L’Internet des Objets pourrait se définir simplement comme un ensemble de réseaux d’objets physiques ou virtuels qui communiquent via des réseaux souvent sans fil à internet
+
+2. lister quelques domaines que l'IoT permet de faire des nouvelles choses:
+    - le transport
+    - la santé
+    - l'industrie
+    - la sécurité
+    - l'énergie
+
+3. l'architexture réseau de l'IoT
+    - Verticalement: comporte 4 niveaux (couches):
+        1. Device Layer:
+            - Gadgets.
+            - Passerelles.
+        2. Network Layer:
+            - Accès Réseaux.
+            - Prise en charge communications.
+        3. Service Layer:
+            - Prise en charge de services.
+        4. Application Layer:
+            - Prise en charge d’applications.
+    
+    - Horizontalement: comporte 2 niveaux  
+        1. Management Layer
+            - Outils de gestion pour différents niveaux.
+        2. Security Layer:
+            - Outils de sécurité pour différents niveaux.
+
+4. lister les différentes plateformes de communications de device layer.
+    - Courte distance:
+        - RF/RFID. 
+        - Bluetooth. 
+        - ZigBee.
+        - Z-wave.
+    - Moyenne distance:
+        - Xbee.
+        - Wifi.
+    - Longue distance:
+        - LoraWan. 
+        - SigFox. 
+        - NB-IoT. 
+        - LTE-X.
+
+5. lister les principales fonctionnalités offertes par network layer:
+    1. Les fonctionnalités Gateway
+        - Découverte et Accès réseau.
+    2. Routage et adressage
+    3. Optimisation d’énergie
+        - Fréquence d’échantillonnage. 
+        - Utilisation de la radio.
+    4. Prise en charge de la QoS
+        - définition des Priorités.
+    5. Contrôle du Flux de données
+        - Régulation et fiabilité
+    6. Détection des erreurs
+        - Mécanisme de correction
+
+6. lister les modules de gestion des services de service layer:
+    - Service management: pour la gestion des services
+    - Virtual Entity (VE): pour la gestion d’entités Virtuelles qui permet de faciliter la composition des services
+    - Business process management: pour la gestion des Processus Métiers afin de créer Des services qui colle avec la stratégie Commerciale de l’entreprise
+
+7. lister des outils composé par management layer.
+    - Outil de gestion d’objets connectés. 
+    - Outil de gestion de la QoS.
+
+8. lister des outils composé par security layer.
+    - Outil de gestion d’Authorizations 
+    - Outil de gestion de Clés
+    - Outils des autorités de Confiance 
+    - Outil de gestion des identités
+    - Outil de gestion d’authentification
+
+  
+9. lister les 3 paradigme de communication de l'IoT.
+    1. Device-to-Device
+        - communiquent directement entre eux sans passer par un serveur intermédiaire
+        - passer par un réseau IP ou par un réseau Internet
+        - basés souvent sur les protocoles tels que Bluetooth, Z-Wave, ou ZigBee
+    2. Device-to-Cloud
+        - directement à un service d’une plateforme cloud sur Internet pour échanger des données
+        -  les connexions filaires Ethernet ou Wi-Fi traditionnelles pour établir une connexion entre l‘objet et le réseau IP
+    3. Device-to-Gateway
+        - l’objet IoT se connecte via un service ALG(Device-Application-Layer-Gateway) pour atteindre un service cloud
+        - il existe un logiciel d’application fonctionnant sur une passerelle local, qui sert d’intermédiaire entre l’Objet et le service sur Cloud et assure la sécurité et d’autres fonctionnalités
+
+10. SOA(Architecture orientée services)
+    - consiste à encapsuler les applications sous forme de briques logicielles appelées services
+    - pour apporter des solutions au problème d’intégration d’applications
+    - favorise la réutilisation, l’évolution et l’intégration des applications
+
+11. les protocoles pour IoT:
+    - CoAP(ConstrainedApplicationProtocole): un protocole standardisé qui permet aux équipements à faibles ressources de communiquer sur des réseaux classiques tels que Internet
+        - Couche Requête/Réponse: gère l’interaction avec l’application
+        - Couche Messages: gère l’interfaçage avec la couche UDP via des messages asynchrone.
+        - Il est possible de sécuriser les échanges de CoAP via DTLS, qui permet de faire une sécurité TLS sur un échange datagramme de UDP
+    - HTTP
+    - MQTT(MessageQueuingTelemetryTransport): adapté aux connexions qui intègrent une partie de mobilité entre les clients et le serveur qui va stocker les donnée
+        - basé sur le mécanisme publisher/subscriber. Il est conçu pour fonctionner au dessus de TCP/IP
+        - possible de sécuriser une connexion en utilisant un nom d'utilisateur et un mot de passe pour se connecter au broker ou pour l'échange de données via un protocole de sécurisation (SSL)
+
+12. OneM2M: un Framework de conception d’application IoT orientée ressources. lister ses éléments:
+    - entité
+        - AE: Application Entity.
+        - CSE: Common Service Entity 
+        - NSE: Network Service Entity.
+    - Point de référence: ensemble d’interfaces
+        - Mca: interfacer AE et CSE.
+        - Mcn: interfacer NSE et CSE.
+        - Mcc, Mcc’: interfacer 2 CSEs.
+    - Nœud: 3 types de nœuds (Entité logique): 
+        - ADN: (Application Dédicated Node):AE.
+        - ASN: (Application Service Node) : CSE+AE
+        - MN: (Middle Node) : CSE+AE
+        - IN: (infrastructure Node) : CSE+AE
