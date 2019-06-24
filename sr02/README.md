@@ -1,3 +1,251 @@
+# Architecture d'un système d'exploitation
+
+## Introduction
+Fonction du système d'exploitation: gérer tous les périphériques et de fournir aux programmes utilisateur une interface simplifiée avec le matériel
+
+![](img/se.png)
+
+- le niveau micro-architecture: la niveau micro-architecture CPU (Central Processing Unit) et un chemin de données contenant une ALU (Arithmetic and Logic Unit)
+- le niveau ISA (Instruction Set Architecture): le langage machine
+
+![](img/ar-se.png)
+
+### sous-système
+
+![](img/sous-sys.png)
+
+### les interfaces d'un système d'exploitation
+
+-  Interface utilisateur
+-  Interface administrateur
+-  Interface Programmeur
+
+
+### Types de systèmes d’exploitation
+
+- Les systèmes pour mainframes 大型计算机
+
+un ordinateur central de grande puissance
+chargé de gérer les sessions utilisateurs des différents terminaux qui lui étaient reliés.
+
+- Les systèmes multiprocesseurs 
+
+capable de gérer le partage de la mémoire entre plusieurs processeurs et également de distribuer la charge de travail
+
+- Les systèmes personnels
+
+Les systèmes les plus représentatifs sont Windows 98, Windows 2000, Mac OS et Linux
+
+- Les systèmes temps réel
+
+se caractérisent par le respect de contraintes temporelles
+
+- Les systèmes embarqués 嵌入式系统
+
+Les systèmes embarqués tournent sur des ordinateurs qui pilotent des périphériques qui d'ordinaire ne dépendent pas d'un ordinateur, comme par exemple une télévision, un four à micro-ondes, un PDA
+
+- Les systèmes pour smart cards
+
+Les plus petits systèmes d'exploitation se trouvent sur les smart cards, des périphériques de la taille d'une carte de crédit contenant une CPU. Ils sont sujet à de sévères contraintes de mémoire et de puissance de calcul
+
+##  Mécanisme de base
+
+### Architecture matérielle d'une machine Von Neumann
+
+Un modèle pour la conception et la construction des ordinateurs, sur la base des trois caractéristiques suivantes :
+
+1. L'ordinateur se compose de quatre sous-systèmes principaux:
+	- Mémoire centrale
+	- Unité arithmétique et logique (ALU)
+	- Unité de contrôle (UC)
+	- dispositifs d'entrées/sorties (E/S)
+2. Le programme est stocké en mémoire pendant l'exécution
+3. Les instructions du programme sont exécutées
+
+![](img/ar-vonn.png)
+
+
+#### Les registres du processeur
+
+- `Le compteur ordinal (CO)` : pointe vers la prochaine instruction à exécuter. 指向下一条命令
+
+- `Le registre instruction (RI)` : contient l'instruction en cours d'exécution. 当前正在执行的命令
+
+- `Les registres généraux` : registre accumulateur, registre index, etc. 累计器
+
+- `Le mot d'état (ou PSW pour Program Status Word)` : indique l'état du processeur (actif, attente, etc.), le mode d'exécution (maître/esclave), le compteur ordinal, masque d'interruption, etc.. 进程当前状态、执行方式、序数计数器、中断掩码
+
+- `Le registre accumulateur (ACC)`, stockant les résultats des opérations arithmétiques et logiques ; 存储算数逻辑运算的结果
+
+####  Cycle d'exécution du processeur
+
+1. Lecture d’instruction
+	- Charger le 1 er mot d'instruction de la mémoire principale vers le registre d'instruction
+2. Décodage
+	- Lecture éventuelle des autres mots d'instruction (selon le format)
+	- Ces valeurs sont stockées dans l'unité centrale dans des registres internes (registre d'opérande et de données)
+3. Recherche d’opérandes
+	- Accès aux registres (si mode registre)
+	- Calcul d’adresse et recherche d’opérandes mémoire (si mode mémoire)
+4. Exécution
+	- Calcul dans l’ALU pour les instructions arithmétiques ou logiques
+	- Calcul de l’adresse de branchement pour les instructions de contrôle
+5. Ecriture résultat
+6. Passage à l’instruction suivante
+
+![](img/cycle-processeur.png)
+
+### Modèle de processus
+
+Un processus est un programme qui s'exécute
+
+#### Exécution parallèle sur architecture monoprocesseur
+
+- Sur une architecture monoprocesseur, l'exécution parallèle est réalisée par l'exécution de plusieurs processus en alternance sur un seul processeur
+
+- Le processeur commute entre plusieurs processus
+
+- La rapidité de commutation donne l'impression à l'utilisateur que les processus s'exécutent simultanément
+
+`Contexte d'un processus`
+
+- Le contexte d'un processus est son image en un point interruptible
+- Il est représenté dans le système d'exploitation par une structure regroupant les informations essentielles pour l'exécution du processus comme le contenu des registres, sa pile d'exécution, son masque d'interruption, son état, son compteur ordinal, des pointeurs sur ses ressources (mémoire, fichiers, etc.), etc.
+
+` Process Control Bloc (PCB)`
+
+- L'ensemble des processus du système est représenté en général par une liste chaînée, dont chaque élément est un bloc de contrôle de processus : PCB (Process Control Bloc)
+- Le PCB n'est autre que la structure qui héberge le contexte du processus
+- Le PCB est identifié par un ID entier du processus (PID)
+
+- Un PCB contient les informations suivantes:
+	- État du processus: nouveau, prêt, ...
+	- Compteur de programme: indique l'adresse de la prochaine instruction à exécuter
+	- Registres CPU: comprend des accumulateurs, pointeurs de pile, ...
+	- Informations d'ordonnancement : inclut la priorité de processus, des pointeurs vers des files d'attente
+	- Informations sur la gestion de la mémoire: comprend la valeur des registres de base et de limite (protection) ...
+	- Informations comptables: comprend la quantité de CPU et le temps réel utilisé, les numéros de compte, les numéros de processus, ...
+	- Informations d'état d'E/S : liste des périphériques d'E/S affectés à ce processus, une liste de fichiers ouverts, ..
+	
+![](img/pcb.png)
+
+`Droits d'un processus`
+
+1. **Le mode d'exécution master / slave (système/utilisateur)** : traduit la possibilité d'exécuter des instructions privilégiées ou pas. Les instructions privilégiées accèdent directement à des éléments vitaux (contrôleurs d'unités de disques, toute la mémoire, table des pages mémoires, etc.)
+2. **Le niveau de privilège ou clé d'écriture** : donne les droits d'accès à la mémoire ;
+3. **L'indicateur de masquage des interruption** : traduit le fait qu'un processus peut être interrompu ou non par certaines interruptions ;
+4. Etc,
+
+`Image mémoire d'un processus`
+
+Le résultat de la compilation se traduit par différentes zones dans le programme binaire. Dans un système Unix on distingue :
+
+- data-rw : une zone pour variables déclarées en statique,
+- data-ro : une zone pour les données non modifiables (chaines des printf, ...), 
+- texte : le code binaire des instructions du programme,
+- en-tête : des informations sur les bibliothèques utilisées par le programme
+
+`États d'un processus`
+
+- Actif:processusencoursd'exécution;
+- Bloqué : Processus en attente d'un événement extérieur qui puisse le débloquer. C'est le cas par exemple, quand un processus fait une opération d'entrée/sortie;
+- Prêt : processus prêt pour exécution.
+
+![](img/etat-p.png)
+
+### Hiérarchie de processus
+
+- pid
+- ppid: processus père/fils
+
+```
+fork()
+```
+
+`Processus zombie` != `ProcessusOrphelins`
+
+#### Synchronisation père-fils
+
+```
+wait()
+```
+
+### Commutation de contexte
+### Le système d'interruption
+
+- Quand l'indicateur d'interruption du PSW est modifié à partir de l'extérieur du processeur, on dit qu'il y a interruption.
+- Le contexte du processus est sauvegardé, et la routine d'interruption est exécutée.
+- Quand l'exécution de la routine d'interruption est terminée, un processus est élu pour s'exécuter. Pour cela, son contexte est repris et le PSW du processeur est chargé à partir du contexte du processus élu.
+
+![](img/routine-interruption.png)
+
+`déroutement`
+
+- Quand un indicateur de changement d'état est modifié par une cause liée à l'exécution d'une instruction en cours, on dit qu'il y a déroutement (trap)
+
+- Le mécanisme de déroutement a essentiellement pour rôle de traiter une anomalie dans le déroulement d'une instruction : division par 0, débordement arithmétique, violation de la mémoire, exécution d'une instruction privilégiée en mode esclave, etc
+
+- L'exécution du déroutement s'effectue en mode superviseur
+
+### Appels système
+
+`Appel au superviseur (appel système)`
+
+- Un appel système (appel au superviseur, ou SVC SuperVisor Call) est une instruction utilisée pour réaliser un appel, à partir d'un processus qui s'exécute en mode esclave (utilisateur), à une fonction qui s'exécute en mode maître (système) (par exemple une fonction d'accès à un fichier : ouvrir, lire, fermer, ...)
+
+- L'appel au superviseur provoque une commutation de contexte
+
+- Tout au long de son exécution un processus alterne entre les deux modes : système / utilisateur
+
+- la norme POSIX sous UNIX
+
+### Les signaux sous UNIX
+
+`Etats d’un signal`
+
+- **Envoyé** par un processus émetteur à un processus récepteur
+- **Pendant** tant qu’il n’ pas été traité par le processus destinataire. le signal peut être bloqué (masqué, retardé) par le processus destinataire
+	- Le bit associé dans le registre des signaux pendant est à 1.
+	- Si un autre signal du même type arrive, alors qu'il en existe un pendant, il est perdu.
+	- Un processus en mode noyau (maître) ne peut être interrompu par un signal.
+- **Délivré** lorsque il est pris en compte par le processus destinataire
+
+`Traitement des signaux`
+
+- **terminaison** du processus ( SIG_DFL) 
+- **signal ignoré** (sans effet) (SIG_IGN)
+- **suspension** du processus (SIGSTOP)
+- **continuation** : reprise d'un processus stoppé (SIGCONT)
+
+`Types de signaux`
+
+![](img/type-signal.png)
+
+```
+# Envoi d'un signal：
+int kill(pid_t pid, int sig); 
+
+# Attente d'un signal： 
+int pause(void); 
+int sigsuspend( const sigset_t *sigmask );
+
+# Gestion des signaux：
+signal( signal_number, handler_action); 
+
+# Installation de nouveaux handlers：
+struct sigaction{
+void (*sa_handler)(); 
+sigset_t sa_mask;
+int sa_flags;
+}
+int sigaction(int sig, struct sigaction*new_handler, struct sigaction *old_handler);
+
+# Bloquer temporairement les signaux autour des sections critiques：
+int sigprocmask (int cmt, const sigset_t * sigs, sigset_t * prev);
+
+```
+
+----
 
 ## C3. Gestion des entrées / sorties
 ### Ordonnancement des requêtes du disque
