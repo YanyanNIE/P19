@@ -45,7 +45,10 @@
 java.lang.ClassNotFoundException: com.mysql.jdbc.Driver
 at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1713) at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1558)
 ```
-![](review/jee-erreur-vf.png)
+
+<div align=center>
+<img src="review/jee-erreur-vf.png" width="80%" >
+</div>
 
 9. Quels sont les avantages de l’utilisation de servlets par rapport aux CGI ? Citez au moins trois.
     
@@ -148,13 +151,23 @@ public class SessionServlet extends HttpServlet {
 
 17. Donnez une représentation graphique du model MVC, expliquez les fonctionnalités de chaque partie et décrivez-en l’implémentation JEE.
 
-![](review/jee-mvc-2.png)
 
-![](review/jee-mvc-1.png)
+<div align=center>
+<img src="review/jee-mvc-2.png" width="80%" >
+</div>
+
+
+<div align=center>
+<img src="review/jee-mvc-1.png" width="80%" >
+</div>
 
 18. Donnez une représentation graphique de la structure d’un module web en JEE, et expliquez la position et le contenu de chaque répertoire. 
 
-![](review/jee-module-web.png)
+
+<div align=center>
+<img src="review/jee-module-web.png" width="80%" >
+</div>
+
 
 19. Quels sont les 5 types d’éléments qui peuvent être contenus dans une page JSP (à part les balises HTML)?
 
@@ -294,7 +307,10 @@ String name = listeCookies[0].getName();
 
 37. Expliquer les actions numérotées dans le schéma suivant.
 
-![](review/jee-action-schema.png)
+
+<div align=center>
+<img src="review/jee-action-schema.png" width="80%" >
+</div>
 
 38. Expliquer la commande suivante : getServletContext().getRequestDispatcher(urlCible).forward(req,resp);
 
@@ -621,7 +637,10 @@ public class Temp {
 
 3. Donenz le graph de l'architecture de base de Web Service.
 
-![](review/webservice-architecture.png)
+
+<div align=center>
+<img src="review/webservice-architecture.png" width="80%" >
+</div>
 
     - le fournisseur de service : 
         - définit le service
@@ -635,7 +654,11 @@ public class Temp {
         - utilise le service
 
 4. Donnez le graph pour descrire le rôle de SOAP, WSDL et UDDI.
-![](review/webservice-scenario.png)
+
+
+<div align=center>
+<img src="review/webservice-scenario.png" width="80%" >
+</div>
 
 5. Donnez un exemple de code de XML qui dexcrire un livre(avec chapitre, titre, contenu...):
 
@@ -800,7 +823,10 @@ manque de contrôle d’accès au niveau fonctionnel)
 
 1. Architecture Web: (HTML statique, HTML dynamique)
 
-![](review/jee-arc-web.png)
+
+<div align=center>
+<img src="review/jee-arc-web.png" width="80%" >
+</div>
 
 2. Qu'est-ce que c'est un serveur d'application
 
